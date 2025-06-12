@@ -1,6 +1,11 @@
 - name: Checking Machine
   hosts: all
   tasks:
+    - name: Ensure C:\TEMP directory exists
+      win_file:
+        path: "C:\\temp"
+        state: directory
+        
     - name: Wait for WinRM to be available
       ansible.windows.win_ping:
       register: winrm_check
