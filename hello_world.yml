@@ -1,4 +1,4 @@
-- name: Sample
+- name: Checking Machine
   hosts: all
   tasks:
     - name: Wait for WinRM to be available
