@@ -22,3 +22,6 @@
     - name: Optional - Display activation status
       win_shell: "cscript.exe C:\\Windows\\System32\\slmgr.vbs /dli"
       register: activation_status
+
+    - name: Get product id and product key
+      community.windows.win_product_facts:
