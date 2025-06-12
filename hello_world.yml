@@ -1,15 +1,22 @@
 - name: Checking Machine
   hosts: all
   tasks:
-    - name: Wait for WinRM to be available
-      ansible.windows.win_ping:
-      register: winrm_check
-      retries: 300
-      delay: 100
-      until: winrm_check is success
-      ignore_errors: false
+    - name: Optional - Display activation status
+      win_shell: "cscript.exe C:\\Windows\\System32\\slmgr.vbs /dli"
+      register: activation_status
+  
+    - name: Get product id and product key
+      community.windows.win_product_facts:
  
-    - name: Debug WinRM check
-      ansible.builtin.debug:
-        var: winrm_check
-      when: winrm_check.failed
+    - name: Display Windows edition
+      debug:
+        var: ansible_os_license_edition
+ 
+    - name: Display Windows license status
+      debug:
+        var: ansible_os_license_status
+ 
+    - name: Ensure C:\TEMP directory exists
+      win_file:
+        path: "C:\\temp"
+        state: directory
