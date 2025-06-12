@@ -1,6 +1,15 @@
 - name: Sample
   hosts: all
   tasks:
-    - name: Hello Message
-      debug:
-        msg: "Hello a!"
+    - name: Wait for WinRM to be available
+      ansible.windows.win_ping:
+      register: winrm_check
+      retries: 300
+      delay: 100
+      until: winrm_check is success
+      ignore_errors: false
+ 
+    - name: Debug WinRM check
+      ansible.builtin.debug:
+        var: winrm_check
+      when: winrm_check.failed
