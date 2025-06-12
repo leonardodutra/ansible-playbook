@@ -37,9 +37,8 @@
     - name: Print OS details
       debug:
         msg: "OS: {{ ansible_distribution }}"
-    - name: Print version number
-      debug:
-        msg: "Version: {{ ansible_version.major }}.{{ ansible_version.minor }}"
-    - name: Check OS type
-      debug:
-        msg: "OS Type: {{ ansible_system }}"
+
+    - name: Check if a service is installed
+      win_service:
+        name: QualysAgent
+      register: service_info
