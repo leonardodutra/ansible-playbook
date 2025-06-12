@@ -13,6 +13,7 @@
       ansible.builtin.debug:
         var: winrm_check
       when: winrm_check.failed
+      
     - name: Optional - Display activation status
       win_shell: "cscript.exe C:\\Windows\\System32\\slmgr.vbs /dli"
       register: activation_status
