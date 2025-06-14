@@ -6,8 +6,8 @@
     - name: Deploy VM from template
       community.vmware.vmware_guest:
         hostname: "{{ vcenter_server }}"
-        username: "{{ lookup('env', 'VCENTER_USERNAME') }}"
-        password: "{{ lookup('env', 'VCENTER_PASSWORD') }}"
+        username: "{{ lookup('env', 'USERNAME') }}"
+        password: "{{ lookup('env', 'PASSWORD') }}"
         validate_certs: "{{ validate_certs }}"
         name: "{{ hostname }}"
         template: "{{ template_name }}"
