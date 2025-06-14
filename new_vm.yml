@@ -1,13 +1,47 @@
 - name: Checking Machine
   hosts: all
   tasks:
-    - name: Get product id and product key
-      community.windows.win_product_facts:
-      
-    - name: Display Windows license status
-      debug:
-        var: ansible_os_license_status
+    - name: Deploy Windows VM from template
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ validate_certs }}"
+        name: "{{ vm_name }}"
+        template: "{{ template_name }}"
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ vm_folder }}"
+        cluster: "{{ cluster_name }}"
+        datastore: "{{ datastore_name }}"
+        hardware:
+          memory_mb: "{{ var_memory_mb }}"
+          num_cpus: "{{ var_num_cpus }}"
+          scsi: paravirtual
+        networks:
+          - name: "{{ network_name }}"
+            network_name: "{{ network_name }}"
+            label: "{{ interface_name }}"
+            device_type: vmxnet3
+            start_connected: true
+            connected: true
+            type: static
+            ip: "{{ ip_address }}"
+            netmask: "{{ var_subnet_mask }}"
+            gateway: "{{ var_gateway }}"
+            dns_servers: "{{ var_dns }}"
+            state: present
+        customization:
+          autologon: false
+          autologoncount: 0
+          hostname: "{{ hostname }}"
+          password: "{{ winrm_password }}"
+        wait_for_customization: true
+        state: poweredon
+        wait_for_ip_address: true
+      delegate_to: localhost
+      register: vm_deploy
 
-    - name: Print OS details
-      debug:
-        msg: "OS: {{ ansible_distribution }}"
+    - name: Debug VM deployment result
+      ansible.builtin.debug:
+        var: vm_deploy
+      when: vm_deploy.failed
