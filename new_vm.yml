@@ -1,4 +1,7 @@
 - name: Deploy Machine
+  collections:
+    - community.vmware
+    - ansible.windows
   hosts: all
   tasks:
     - name: Deploy VM from template
@@ -7,7 +10,7 @@
         username: "{{ vcenter_username }}"
         password: "{{ vcenter_password }}"
         validate_certs: "{{ validate_certs }}"
-        name: "{{ vm_name }}"
+        name: "{{ inventory_hostname_short }}"
         template: "{{ template_name }}"
         datacenter: "{{ datacenter_name }}"
         folder: "{{ vm_folder }}"
