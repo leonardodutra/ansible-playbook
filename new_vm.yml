@@ -1,7 +1,7 @@
-- name: Checking Machine
+- name: Deploy Machine
   hosts: all
   tasks:
-    - name: Deploy Windows VM from template
+    - name: Deploy VM from template
       community.vmware.vmware_guest:
         hostname: "{{ vcenter_hostname }}"
         username: "{{ vcenter_username }}"
