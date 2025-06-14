@@ -1,14 +1,13 @@
 - name: Deploy Machine
   collections:
     - community.vmware
-    - ansible.windows
   hosts: all
   tasks:
     - name: Deploy VM from template
       community.vmware.vmware_guest:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
+        hostname: {{ lookup('env', 'VCENTER_HOST')}}
+        username: {{ lookup('env', 'VCENTER_USERNAME')}}
+        password: {{ lookup('env', 'VCENTER_PASSWORD')}}
         validate_certs: "{{ validate_certs }}"
         name: "{{ inventory_hostname_short }}"
         template: "{{ template_name }}"
