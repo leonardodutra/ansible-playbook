@@ -5,7 +5,7 @@
   tasks:
     - name: Deploy VM from template
       community.vmware.vmware_guest:
-        hostname: "{{ hostname }}"
+        hostname: "{{ vmware_server }}"
         username: {{ lookup('env', 'VCENTER_USERNAME') }}
         password: {{ lookup('env', 'VCENTER_PASSWORD') }}
         validate_certs: "{{ validate_certs }}"
