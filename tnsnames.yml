@@ -1,0 +1,19 @@
+---
+- name: Copiar tnsnames.ora para o diretório TNS_ADMIN (Machine scope)
+  hosts: windows
+  gather_facts: no
+  tasks:
+
+    - name: Obter valor da variável TNS_ADMIN (Machine)
+      win_shell: '[System.Environment]::GetEnvironmentVariable("TNS_ADMIN", "Machine")'
+      register: tns_admin_path
+
+    - name: Verificar se TNS_ADMIN foi retornado corretamente
+      fail:
+        msg: "TNS_ADMIN (Machine) não está definida."
+      when: tns_admin_path.stdout == ""
+
+    - name: Copiar tnsnames.ora para o caminho definido por TNS_ADMIN
+      win_copy:
+        src: "{{ build_sources_dir }}/Tnsnames/Usuario - Servers App/tnsnames.ora"
+        dest: "{{ tns_admin_path.stdout | trim }}\\tnsnames.txt"
