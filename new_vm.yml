@@ -35,10 +35,7 @@
           hostname: "{{ hostname }}"
           autologon: no
           autologoncount: 0
-          password:
-            value: "{{ winrm_password }}"
-            plain_text: true
-          time_zone: 190
+          password: "{{ winrm_password }}"
           run_once:
             - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
             - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
