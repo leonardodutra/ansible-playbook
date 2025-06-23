@@ -1,19 +1,24 @@
-- name: Create A New VM From A Template
-  vmware.vmware.deploy_folder_template:
-    hostname: "https://vcenter"
-    username: "username"
-    password: "password"
-    datacenter: "my-datacenter"
-    vm_name: "my_vm"
-    template_name: "my_template"
-
-- name: Create A New Template Using Folders To Specify Which VM and Template
-  vmware.vmware.deploy_folder_template:
-    hostname: "https://vcenter"
-    username: "username"
-    password: "password"
-    datacenter: "my-datacenter"
-    vm_name: "my_vm"
-    template_name: "my_template"
-    vm_folder: foo/bar/my/vms
-    template_folder: /my-datacenter/vm/foo/bar/my/templates
+- name: Deploy Machine
+  collections:
+    - community.vmware
+  hosts: all
+  tasks:
+   - name: Create A New VM From A Template
+      vmware.vmware.deploy_folder_template:
+        hostname: "https://vcenter"
+        username: "username"
+        password: "password"
+        datacenter: "my-datacenter"
+        vm_name: "my_vm"
+        template_name: "my_template"
+    
+   - name: Create A New Template Using Folders To Specify Which VM and Template
+      vmware.vmware.deploy_folder_template:
+        hostname: "https://vcenter"
+        username: "username"
+        password: "password"
+        datacenter: "my-datacenter"
+        vm_name: "my_vm"
+        template_name: "my_template"
+        vm_folder: foo/bar/my/vms
+        template_folder: /my-datacenter/vm/foo/bar/my/templates
