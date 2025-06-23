@@ -36,7 +36,7 @@
           autologoncount: 0
           hostname: "{{ hostname }}"
           password: "{{ winrm_password }}"
-        run_once:
+        runonce:
           - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
           - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
           - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
