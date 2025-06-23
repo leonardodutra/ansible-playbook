@@ -32,10 +32,17 @@
               - "{{ dns_server2 }}"
             state: present
         customization:
-          autologon: yes
-          autologoncount: 10
           hostname: "{{ hostname }}"
-          password: "{{ winrm_password }}"
+          autologon: no
+          autologoncount: 0
+          admin_password:
+            value: "{{ winrm_password }}"
+            plain_text: true
+          time_zone: 190
+          run_once:
+            - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
+            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
+            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
         wait_for_customization: true
         state: poweredon
         wait_for_ip_address: true
