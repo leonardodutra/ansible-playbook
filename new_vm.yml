@@ -32,9 +32,9 @@
               - "{{ dns_server2 }}"
             state: present
         customization:
-          hostname: "{{ hostname }}"
-          autologon: no
+          autologon: false
           autologoncount: 0
+          hostname: "{{ hostname }}"
           password: "{{ winrm_password }}"
           run_once:
             - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
