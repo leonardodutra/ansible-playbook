@@ -3,7 +3,7 @@
     - community.vmware
   hosts: all
   tasks:
-   - name: Create A New VM From A Template
+    - name: Create A New VM From A Template
       vmware.vmware.deploy_folder_template:
         hostname: "https://vcenter"
         username: "username"
@@ -11,8 +11,7 @@
         datacenter: "my-datacenter"
         vm_name: "my_vm"
         template_name: "my_template"
-    
-   - name: Create A New Template Using Folders To Specify Which VM and Template
+    - name: Create A New Template Using Folders To Specify Which VM and Template
       vmware.vmware.deploy_folder_template:
         hostname: "https://vcenter"
         username: "username"
