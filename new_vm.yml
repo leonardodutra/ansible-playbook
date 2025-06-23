@@ -35,7 +35,7 @@
           hostname: "{{ hostname }}"
           autologon: no
           autologoncount: 0
-          admin_password:
+          password:
             value: "{{ winrm_password }}"
             plain_text: true
           time_zone: 190
