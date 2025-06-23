@@ -35,7 +35,6 @@
           autologon: false
           autologoncount: 0
           hostname: "{{ hostname }}"
-          username: "{{ winrm_login }}"
           password: "{{ winrm_password }}"
         wait_for_customization: true
         state: poweredon
