@@ -34,6 +34,7 @@
         state: poweredon
         customization:
           autologon: false
+          autologoncount: 0
           runonce:
             - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
             - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
