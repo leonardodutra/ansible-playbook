@@ -33,8 +33,8 @@
             state: present
         state: poweredon
         customization:
-          autologon: false
-          autologoncount: 0
+          autologon: False
+          autologoncount: 1
           hostname: "{{ hostname }}"
           password: "{{ winrm_password }}"
           runonce:
