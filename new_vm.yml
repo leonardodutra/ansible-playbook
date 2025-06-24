@@ -31,16 +31,6 @@
               - "{{ dns_server1 }}"
               - "{{ dns_server2 }}"
             state: present
-        customization:
-          autologon: false
-          autologoncount: 0
-          hostname: "{{ hostname }}"
-          password: "{{ winrm_password }}"
-          runonce:
-            - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
-        wait_for_customization: true
         state: poweredon
         wait_for_ip_address: true
       delegate_to: localhost
