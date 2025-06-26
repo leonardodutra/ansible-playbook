@@ -3,18 +3,21 @@
     - community.vmware
   hosts: all
   tasks:
-    - name: Deploy VM from template
+    - name: Deploy Linux VM from template
       community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
         validate_certs: "{{ validate_certs }}"
-        name: "{{ hostname }}"
+        name: "{{ vm_name }}"
         template: "{{ template_name }}"
         datacenter: "{{ datacenter_name }}"
         folder: "{{ vm_folder }}"
         cluster: "{{ cluster_name }}"
         datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ memory_mb }}"
-          num_cpus: "{{ num_cpus }}"
+          memory_mb: "{{ var_memory_mb }}"
+          num_cpus: "{{ var_num_cpus }}"
           scsi: paravirtual
         networks:
           - name: "{{ network_name }}"
@@ -25,23 +28,11 @@
             connected: true
             type: static
             ip: "{{ ip_address }}"
-            netmask: "{{ subnet_mask }}"
-            gateway: "{{ gateway }}"
-            dns_servers:
-              - "{{ dns_server1 }}"
-              - "{{ dns_server2 }}"
+            netmask: "{{ var_subnet_mask }}"
+            gateway: "{{ var_gateway }}"
+            dns_servers: "{{ var_dns }}"
             state: present
         state: poweredon
-        customization:
-          autologon: yes
-          autologoncount: 5
-          hostname: "{{ hostname }}"
-          password: "{{ winrm_password }}"
-          runonce:
-            - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
-        wait_for_customization: true
         wait_for_ip_address: true
       delegate_to: localhost
       register: vm_deploy
