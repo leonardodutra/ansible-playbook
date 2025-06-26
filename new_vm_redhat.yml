@@ -1,0 +1,52 @@
+- name: Deploy Machine
+  collections:
+    - community.vmware
+  hosts: all
+  tasks:
+    - name: Deploy VM from template
+      community.vmware.vmware_guest:
+        validate_certs: "{{ validate_certs }}"
+        name: "{{ hostname }}"
+        template: "{{ template_name }}"
+        datacenter: "{{ datacenter_name }}"
+        folder: "{{ vm_folder }}"
+        cluster: "{{ cluster_name }}"
+        datastore: "{{ datastore_name }}"
+        hardware:
+          memory_mb: "{{ memory_mb }}"
+          num_cpus: "{{ num_cpus }}"
+          scsi: paravirtual
+        networks:
+          - name: "{{ network_name }}"
+            network_name: "{{ network_name }}"
+            label: "{{ interface_name }}"
+            device_type: vmxnet3
+            start_connected: true
+            connected: true
+            type: static
+            ip: "{{ ip_address }}"
+            netmask: "{{ subnet_mask }}"
+            gateway: "{{ gateway }}"
+            dns_servers:
+              - "{{ dns_server1 }}"
+              - "{{ dns_server2 }}"
+            state: present
+        state: poweredon
+        customization:
+          autologon: yes
+          autologoncount: 5
+          hostname: "{{ hostname }}"
+          password: "{{ winrm_password }}"
+          runonce:
+            - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
+            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
+            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
+        wait_for_customization: true
+        wait_for_ip_address: true
+      delegate_to: localhost
+      register: vm_deploy
+
+    - name: Debug VM deployment result
+      ansible.builtin.debug:
+        var: vm_deploy
+      when: vm_deploy.failed
