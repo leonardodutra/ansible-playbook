@@ -13,7 +13,7 @@
         cluster: "{{ cluster_name }}"
         datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ var_memory_mb }}"
+          memory_mb: 2048
           num_cpus: "{{ var_num_cpus }}"
           scsi: paravirtual
         networks:
