@@ -14,7 +14,7 @@
         datastore: "{{ datastore_name }}"
         hardware:
           memory_mb: 2048
-          num_cpus: "{{ var_num_cpus }}"
+          num_cpus: 4
           scsi: paravirtual
         networks:
           - name: "{{ network_name }}"
