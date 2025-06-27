@@ -1,0 +1,9 @@
+- name: deploy qualys agent
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Copiar arquivo para o destino
+      ansible.builtin.copy:
+       src: "QualysCloudAgent.exe"
+       dest: C:\temp\
