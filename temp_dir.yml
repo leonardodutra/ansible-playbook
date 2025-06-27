@@ -1,0 +1,4 @@
+#    - name: Ensure C:\TEMP directory exists
+#      win_file:
+#        path: "C:\\temp"
+#        state: directory
