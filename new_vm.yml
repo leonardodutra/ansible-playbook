@@ -1,6 +1,7 @@
 - name: Deploy Machine
   collections:
     - community.vmware
+    - ansible.windows
   hosts: all
   tasks:
     - name: Deploy Windows VM from template
