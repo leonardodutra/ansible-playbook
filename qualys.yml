@@ -10,7 +10,7 @@
 
     - name: Install Qualys Cloud Agent
       ansible.windows.win_shell: >
-        c:\temp\QualysCloudAgent.exe CustomerId={{ {CustomerId} }} ActivationId={{ "{ActivationId}" }} WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
+        c:\temp\QualysCloudAgent.exe CustomerId={{ {'CustomerId'} }} ActivationId={{ '{ActivationId}' }} WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
       args:
         executable: "powershell.exe" # Ensure PowerShell is used for execution
 
