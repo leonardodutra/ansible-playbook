@@ -6,9 +6,7 @@
     - name: Copiar arquivo para o destino
       ansible.builtin.copy:
        src: "QualysCloudAgent.exe"
-       dest: C:\temp\
-
-    - name: Install Qualys Cloud Agent
-      ansible.windows.win_shell: >
-        C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri={{ WebServiceUri }}
-
+           dest: C:\temp\
+           
+    - name: Install Qualys Agent on the machine
+      ansible.win_shell: Invoke-Command -ScriptBlock {& cmd /c C:\temp\QualysCloudAgent.exe CustomerId="'{'{{CustomerId}}'}'" ActivationId="'{'{{ActivationId}}'}'" WebServiceUri="http://qagpublic.qg2.apps.qualys.eu/CloudAgent/"}
