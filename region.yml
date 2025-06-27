@@ -5,6 +5,5 @@
   tasks:
     - name: Configure Windows region
       community.windows.win_region:
-        location: "Brazil" # Example location
         format: "pt-BR" # Example format
         copy_settings: true
