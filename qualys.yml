@@ -8,18 +8,11 @@
        src: "QualysCloudAgent.exe"
        dest: C:\temp\
 
-    - name: Ensure Qualys Cloud Agent is installed
-      win_package:
-        path: c:\temp\QualysCloudAgent.exe
-        product_id: "QualysCloudAgent" # Or the actual Product ID if different
+    - name: Install Qualys Agent
+      ansible.windows.win_package:
+        path: 'c:\temp\QualysCloudAgent.exe'
         state: present
         arguments:
-          - "/qn" # Silent installation
-          - "CustomerId={{ CustomerId }}"
-          - "ActivationId={{ ActivationId }}"
-          - "WebServiceUri={{ WebServiceUri }}"
-      register: qualys_agent_install_result
-
-    - name: Display installation result
-      debug:
-        var: qualys_agent_install_result
+          - CustomerId={3a53053e-72e1-4652-839a-ef99ddadfb7e}
+          - ActivationId={c0176791-ab2b-445c-9042-849abe2301b6}
+          - WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
