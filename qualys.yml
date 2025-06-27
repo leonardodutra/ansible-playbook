@@ -16,3 +16,8 @@
           - CustomerId={3a53053e-72e1-4652-839a-ef99ddadfb7e}
           - ActivationId={c0176791-ab2b-445c-9042-849abe2301b6}
           - WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
+
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+        path: 'c:\temp\QualysCloudAgent.exe'
+        state: absent
