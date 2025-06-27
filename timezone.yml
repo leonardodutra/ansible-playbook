@@ -1,3 +1,8 @@
-   - name: Set timezone to E. South America Standard Time
+- name: Join VM
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Set timezone to E. South America Standard Time
       community.windows.win_timezone:
         timezone: "E. South America Standard Time"
