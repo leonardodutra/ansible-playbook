@@ -7,12 +7,10 @@
       ansible.builtin.copy:
        src: "QualysCloudAgent.exe"
        dest: C:\temp\
-       
-    - name: Install Qualys Agent
-      ansible.windows.win_package:
-        path: 'c:\temp\QualysCloudAgent.exe'
-        state: present
-        arguments:
-          - CustomerId="'{'{{CustomerId}}'}'"
-          - ActivationId="'{'{{ActivationId}}'}'"
-          - WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
+
+    - name: Run Qualys installer silently
+      ansible.windows.win_command: >
+        C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }}
+        ActivationId={{ ActivationId }}
+        WebServiceUri={{ WebServiceUri }}
+        /quiet
