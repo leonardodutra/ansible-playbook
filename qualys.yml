@@ -9,4 +9,4 @@
        dest: C:\temp\
            
     - name: Install Qualys Agent on the machine
-      ansible.win_shell: Invoke-Command -ScriptBlock {& cmd /c C:\temp\QualysCloudAgent.exe CustomerId="'{'{{CustomerId}}'}'" ActivationId="'{'{{ActivationId}}'}'" WebServiceUri="http://qagpublic.qg2.apps.qualys.eu/CloudAgent/"}
+        ansible.win_shell: Invoke-Command -ScriptBlock {& cmd /c C:\temp\QualysCloudAgent.exe CustomerId="'{'{{CustomerId}}'}'" ActivationId="'{'{{ActivationId}}'}'" WebServiceUri="http://qagpublic.qg2.apps.qualys.eu/CloudAgent/"}
