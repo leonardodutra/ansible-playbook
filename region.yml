@@ -1,8 +1,10 @@
 - name: set timezone
   collections:
-    - community.windows
+    - ansible.windows
   hosts: all
   tasks:
-    - name: Set region and format to Brazil
+    - name: Configure Windows region
       ansible.windows.win_region:
-        format: pt-BR
+        location: "Brazil" # Example location
+        format: "pt-BR" # Example format
+        copy_settings: true
