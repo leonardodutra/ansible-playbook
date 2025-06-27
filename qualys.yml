@@ -8,6 +8,15 @@
        src: "QualysCloudAgent.exe"
        dest: C:\temp\
 
-    - name: Install Qualys Cloud Agent
-      win_shell: |
-        & "C:\Temp\QualysCloudAgent.exe" CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri={{ WebServiceUri }}
+    - name: Install Qualys Agent on the machine
+      win_package:
+        path: C:\Temp\QualysCloudAgent.exe
+        productid: auto
+        state: present
+        arguments:
+        - CustomerId="{{ '{'CustomerId'}' }}"
+        - ActivationId="{{ '{'ActivationId'}' }}"
+        - WebServiceUri="{{ '{'WebServiceUri'}' }}"
+        - /install
+        - /passive
+        - /norestart
