@@ -10,5 +10,5 @@
 
     - name: Install Qualys Cloud Agent
       ansible.windows.win_shell: >
-        C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri="{{ WebServiceUri }}"
+        C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri={{ WebServiceUri }}
 
