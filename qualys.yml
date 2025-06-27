@@ -14,5 +14,5 @@
         state: present
         arguments:
           - CustomerId="{{'{CustomerId}'}}"
-          - ActivationId="{{'{ActivationId}'}}"
+          - ActivationId="{{{ActivationId}}}"
           - WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
