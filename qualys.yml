@@ -8,8 +8,8 @@
        src: "QualysCloudAgent.exe"
        dest: C:\temp\
 
-    - name: Run Qualys installer silently
-      ansible.windows.win_command: >
-        start /wait cmd.exe /c C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }}
-        ActivationId={{ ActivationId }}
-        WebServiceUri={{ WebServiceUri }}
+    - name: Install Qualys Cloud Agent
+      win_shell: |
+        & "C:\Temp\QualysCloudAgent.exe" CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri={{ WebServiceUri }}
+      args:
+        creates: "C:\Program Files\Qualys\QualysAgent\QualysAgent.exe" # Prevents re-installation if already present
