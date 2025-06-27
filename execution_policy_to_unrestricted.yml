@@ -3,6 +3,12 @@
     - community.vmware
   hosts: all
   tasks:
+    - name: Check if script already ran
+      win_reg_stat:
+        path: HKLM:\Software\CustomScripts
+        name: BaselineScriptRun
+      register: baseline_check
+      
     - name: Set PowerShell execution policy to Unrestricted
       win_shell: |
         Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Scope LocalMachine
