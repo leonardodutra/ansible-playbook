@@ -1,1 +1,9 @@
-execution policy to Unrestricted
+- name: Deploy Machine
+  collections:
+    - community.vmware
+  hosts: all
+  tasks:
+    - name: Set PowerShell execution policy to Unrestricted
+      win_shell: |
+        Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Scope LocalMachine
+      when: not baseline_check.exists
