@@ -47,16 +47,3 @@
       ansible.builtin.debug:
         var: vm_deploy
       when: vm_deploy.failed
-
-    - name: Wait for WinRM to be available
-      ansible.windows.win_ping:
-      register: winrm_check
-      retries: 300
-      delay: 100
-      until: winrm_check is success
-      ignore_errors: true
-
-    - name: Debug WinRM check
-      ansible.builtin.debug:
-        var: winrm_check
-      when: winrm_check.failed
