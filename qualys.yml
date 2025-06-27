@@ -7,6 +7,14 @@
       ansible.builtin.copy:
        src: "QualysCloudAgent.exe"
        dest: C:\temp\
-           
-    - name: Install Qualys Agent on the machine
-        ansible.win_shell: Invoke-Command -ScriptBlock {& cmd /c C:\temp\QualysCloudAgent.exe CustomerId="'{'{{CustomerId}}'}'" ActivationId="'{'{{ActivationId}}'}'" WebServiceUri="http://qagpublic.qg2.apps.qualys.eu/CloudAgent/"}
+
+    - name: Install Qualys Cloud Agent
+      ansible.windows.win_shell: >
+        c:\temp\QualysCloudAgent.exe CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri=https://qagpublic.qg3.apps.qualys.com/CloudAgent/
+      args:
+        executable: "powershell.exe" # Ensure PowerShell is used for execution
+
+    - name: Clean up Qualys Cloud Agent installer
+      ansible.windows.win_file:
+        path: c:\temp\QualysCloudAgent.exe
+        state: absent
