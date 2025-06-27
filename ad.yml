@@ -1,6 +1,6 @@
 - name: Join VM
   collections:
-    - community.vmware
+    - ansible.windows
   hosts: all
   tasks:
     - name: Join VM to domain
