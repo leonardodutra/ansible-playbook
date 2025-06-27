@@ -13,6 +13,6 @@
         path: 'c:\temp\QualysCloudAgent.exe'
         state: present
         arguments:
-          - CustomerId={3a53053e-72e1-4652-839a-ef99ddadfb7e}
-          - ActivationId={c0176791-ab2b-445c-9042-849abe2301b6}
+          - CustomerId={CustomerId}
+          - ActivationId={ActivationId}
           - WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/
