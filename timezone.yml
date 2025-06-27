@@ -1,4 +1,4 @@
-- name: Join VM
+- name: set timezone
   collections:
     - ansible.windows
   hosts: all
