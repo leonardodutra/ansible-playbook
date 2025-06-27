@@ -10,7 +10,6 @@
 
     - name: Run Qualys installer silently
       ansible.windows.win_command: >
-        C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }}
+        start /wait cmd.exe /c C:\Temp\QualysCloudAgent.exe CustomerId={{ CustomerId }}
         ActivationId={{ ActivationId }}
         WebServiceUri={{ WebServiceUri }}
-        /quiet
