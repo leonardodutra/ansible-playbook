@@ -14,9 +14,9 @@
         productid: auto
         state: present
         arguments:
-        - CustomerId="{CustomerId}"
-        - ActivationId="{ActivationId}"
-        - WebServiceUri="{WebServiceUri}"
+        - CustomerId='{CustomerId}'
+        - ActivationId='{ActivationId}'
+        - WebServiceUri='{WebServiceUri}'
         - /install
         - /passive
         - /norestart
