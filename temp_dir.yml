@@ -1,4 +1,9 @@
-#    - name: Ensure C:\TEMP directory exists
-#      win_file:
-#        path: "C:\\temp"
-#        state: directory
+- name: C:\TEMP directory
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Ensure C:\TEMP directory exists
+      win_file:
+        path: "C:\\temp"
+        state: directory
