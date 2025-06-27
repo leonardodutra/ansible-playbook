@@ -3,6 +3,6 @@
     - ansible.windows
   hosts: all
   tasks:
-    - name: Set the location to Brazil
-      community.windows.win_region:
-        location: 29
+    - name: Set region and format to Brazil
+      ansible.windows.win_region:
+        format: pt-BR
