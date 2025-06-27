@@ -1,0 +1,16 @@
+- name: deploy MMA agent
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name:  Execute MMA
+      ansible.windows.win_powershell:
+         script: |
+          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
+          copy Z:\MMASetup-AMD64-10.20.18076.0.exe C:\temp\
+          $workspaceIdSentinel = {{ workspaceIdSentinel }}
+          $workspaceKey = {{ workspaceKey }}
+          $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
+          $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
+          $mma.ReloadConfiguration()
+          net use Z: /delete
