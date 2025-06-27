@@ -1,21 +1,20 @@
 - name: Deploy Machine
   collections:
     - community.vmware
-    - ansible.windows
   hosts: all
   tasks:
-    - name: Deploy VM from template
+    - name: Deploy Windows VM from template
       community.vmware.vmware_guest:
         validate_certs: "{{ validate_certs }}"
-        name: "{{ hostname }}"
+        name: "{{ vm_name }}"
         template: "{{ template_name }}"
         datacenter: "{{ datacenter_name }}"
         folder: "{{ vm_folder }}"
         cluster: "{{ cluster_name }}"
         datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ memory_mb }}"
-          num_cpus: "{{ num_cpus }}"
+          memory_mb: "{{ var_memory_mb }}"
+          num_cpus: "{{ var_num_cpus }}"
           scsi: paravirtual
         networks:
           - name: "{{ network_name }}"
@@ -26,24 +25,17 @@
             connected: true
             type: static
             ip: "{{ ip_address }}"
-            netmask: "{{ subnet_mask }}"
-            gateway: "{{ gateway }}"
-            dns_servers:
-              - "{{ dns_server1 }}"
-              - "{{ dns_server2 }}"
+            netmask: "{{ var_subnet_mask }}"
+            gateway: "{{ var_gateway }}"
+            dns_servers: "{{ var_dns }}"
             state: present
-        state: poweredon
         customization:
           autologon: false
           autologoncount: 0
           hostname: "{{ hostname }}"
           password: "{{ winrm_password }}"
-          exiting_vm: True
-          runonce:
-            - powershell.exe -ExecutionPolicy Bypass -Command "Enable-PSRemoting -Force"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\Auth\\Basic -Value \$true"
-            - powershell.exe -ExecutionPolicy Bypass -Command "Set-Item WSMan:\\localhost\\Service\\AllowUnencrypted -Value \$true"
         wait_for_customization: true
+        state: poweredon
         wait_for_ip_address: true
       delegate_to: localhost
       register: vm_deploy
@@ -52,3 +44,16 @@
       ansible.builtin.debug:
         var: vm_deploy
       when: vm_deploy.failed
+
+    - name: Wait for WinRM to be available
+      ansible.windows.win_ping:
+      register: winrm_check
+      retries: 300
+      delay: 100
+      until: winrm_check is success
+      ignore_errors: true
+
+    - name: Debug WinRM check
+      ansible.builtin.debug:
+        var: winrm_check
+      when: winrm_check.failed
