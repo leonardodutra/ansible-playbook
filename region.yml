@@ -1,0 +1,8 @@
+- name: set timezone
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Set the location to Brazil
+      community.windows.win_region:
+        location: 29
