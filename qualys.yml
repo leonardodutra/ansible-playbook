@@ -12,5 +12,5 @@
     - name: Install Qualys agent with registration key, activation ID, and web service URI
       ansible.windows.win_package:
         path: C:\temp\\\QualysCloudAgent.exe"
-        args: "/qn /CustomerId={ {{ CustomerId }} } /ActivationId={ {{ ActivationId }} } /WEB_SERVICE_URI=https://qagpublic.qg4.apps.qualys.com/CloudAgent/" # Updated args with explicit curly braces
+        arguments: "/qn /CustomerId={ {{ CustomerId }} } /ActivationId={ {{ ActivationId }} } /WEB_SERVICE_URI=https://qagpublic.qg4.apps.qualys.com/CloudAgent/" # Updated args with explicit curly braces
         state: present
