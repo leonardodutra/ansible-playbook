@@ -1,10 +1,10 @@
-- name: Apply Windows Server 2022 Security Baseline
+- name: Apply ELK
   collections:
     - community.vmware
   hosts: all
   tasks:
 
-    - name:  Execute MMA
+    - name:  Copy ELK artifacts
       ansible.windows.win_powershell:
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
