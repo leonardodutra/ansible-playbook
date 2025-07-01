@@ -8,16 +8,10 @@
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
           copy Z:\MMASetup-AMD64-10.20.18076.0.exe C:\temp\
-          $workspaceIdSentinel = {{ workspaceIdSentinel }}
-          $workspaceKey = {{ workspaceKey }}
-          $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
-          $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
-          $mma.ReloadConfiguration()
           net use Z: /delete
-
+          
     - name: Install Microsoft Monitoring Agent
       ansible.windows.win_package:
         path: C:\temp\MMASetup-AMD64-10.20.18076.0.exe # Path on the target server
-        # product_id: "{YOUR_PRODUCT_ID}" # Optional
-        arguments: "/silent /install /log C:\temp\mma_install.log" # Replace with actual installer arguments
+        arguments: "/silent /install /log C:\temp\mma_install.log /MMA_WORKSPACE_ID={{ mma_workspace_id }} /MMA_WORKSPACE_KEY={{ mma_workspace_key }}" # Example arguments - REPLACE
         state: installed
