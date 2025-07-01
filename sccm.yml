@@ -13,3 +13,11 @@
         path: C:\temp\QualysCloudAgent.exe # Corrected: Removed trailing double quote
         arguments: "CustomerId={{ CustomerId }} ActivationId={{ ActivationId }} WebServiceUri=https://qagpublic.qg4.apps.qualys.com/CloudAgent/"
         state: present
+
+
+    - name:  Copy SCCM to c:\temp\
+      ansible.windows.win_powershell:
+         script: |
+          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
+          copy Z:\MMASetup-AMD64-10.20.18076.0.exe C:\temp\
+          net use Z: /delete
