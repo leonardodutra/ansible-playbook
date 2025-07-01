@@ -7,5 +7,5 @@
       ansible.windows.win_powershell:
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
-          copy Z:\MMASetup-AMD64-10.20.18076.0.exe C:\temp\
+          robocopy Z:\. C:\temp\ /e
           net use Z: /delete
