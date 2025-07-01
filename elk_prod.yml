@@ -9,11 +9,6 @@
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
           copy Z:\ C:\temp\
-          $workspaceIdSentinel = {{ workspaceIdSentinel }}
-          $workspaceKey = {{ workspaceKey }}
-          $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
-          $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
-          $mma.ReloadConfiguration()
           net use Z: /delete
 
 
