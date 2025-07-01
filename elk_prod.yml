@@ -8,8 +8,8 @@
       ansible.windows.win_powershell:
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
-#          copy Z:\ C:\temp\
-#          net use Z: /delete
+          robocopy Z:\. C:\temp /e
+          net use Z: /delete
 
 #    - name: Execute ps1
 #      ansible.windows.win_shell: >
