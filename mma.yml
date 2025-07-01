@@ -14,3 +14,10 @@
           $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
           $mma.ReloadConfiguration()
           net use Z: /delete
+
+    - name: Install Microsoft Monitoring Agent
+      ansible.windows.win_package:
+        path: C:\temp\MMASetup-AMD64-10.20.18076.0.exe # Path on the target server
+        # product_id: "{YOUR_PRODUCT_ID}" # Optional
+        arguments: "/silent /install /log C:\temp\mma_install.log" # Replace with actual installer arguments
+        state: installed
