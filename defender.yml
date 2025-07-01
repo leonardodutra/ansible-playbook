@@ -13,4 +13,4 @@
         # Specify the full path to the .cmd file on the target server
         # Ensure the file is present on the target server before this task runs
         # You might use win_copy to transfer the file if it's not already there
-        command: C:\temp\WindowsDefenderATPLocalOnboardingScript_2019-2025.cmd
+        command: echo Y | C:\temp\WindowsDefenderATPLocalOnboardingScript_2019-2025.cmd
