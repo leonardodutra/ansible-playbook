@@ -1,4 +1,4 @@
-- name: Join VM
+- name: GPupdate Command
   collections:
     - ansible.windows
   hosts: all
