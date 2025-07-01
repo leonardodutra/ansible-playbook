@@ -1,10 +1,10 @@
-- name: Apply ELK
+- name: Apply SCCM
   collections:
     - community.vmware
   hosts: all
   tasks:
 
-    - name:  Copy ELK artifacts
+    - name:  Copy SCCM artifacts
       ansible.windows.win_powershell:
          script: |
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
