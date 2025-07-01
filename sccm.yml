@@ -9,3 +9,8 @@
           net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
           robocopy Z:\. C:\temp\ /e
           net use Z: /delete
+
+    - name: Run my batch file (using win_command - less common for .bat)
+      ansible.windows.win_command: C:\\temp\\Client_SCCM_Install_Local.bat
+      args:
+        chdir: C:\\temp\\
