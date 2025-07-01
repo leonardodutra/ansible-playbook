@@ -6,11 +6,8 @@ echo IMPORTANT: This script is optimized for onboarding a single machine and sho
 echo For more information on large scale deployment, please consult the MDE documentation (links available in the MDE portal under the endpoint onboarding section).
 echo.
 :USER_CONSENT
-set /p shouldContinue= "Press (Y) to confirm and continue or (N) to cancel and exit: "
-IF /I "%shouldContinue%"=="N" (
-	GOTO CLEANUP
-)
-IF /I "%shouldContinue%"=="Y" (
+
+IF /I "Y"=="Y" (
 	GOTO SCRIPT_START
 )
 echo.
