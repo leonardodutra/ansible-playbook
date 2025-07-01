@@ -1,0 +1,14 @@
+- name: Join VM
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Run gpupdate /force
+      ansible.windows.win_shell: gpupdate /force
+      args:
+        # You can add args here if needed, but gpupdate /force typically doesn't require them.
+        # For example, you could change the working directory with chdir: C:\
+        # chdir: C:\
+      # You can add ignore_errors: true if you want the playbook to continue
+      # even if gpupdate /force encounters an issue.
+      # ignore_errors: true
