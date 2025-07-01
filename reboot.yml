@@ -1,0 +1,12 @@
+- name: Reboot VM
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Initiate a reboot
+      ansible.windows.win_reboot:
+        # You can add optional parameters here if needed
+        # For example, you can set a delay before the reboot starts:
+        # delay: 60
+        # Or specify a reason for the reboot (Windows Server 2012 R2 and later):
+        # reason: "Applying updates"
