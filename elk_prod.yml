@@ -12,6 +12,6 @@
           net use Z: /delete
 
     - name: Run my batch file (using win_command - less common for .bat)
-      ansible.windows.win_command: C:\\path\\to\\your\\script.bat
+      ansible.windows.win_command: C:\\temp\\Client_SCCM_Install_Local.bat
       args:
-        chdir: C:\\path\\to\\the\\directory\\where\\you\\want\\to\\run\\the\\script
+        chdir: C:\\temp\\
