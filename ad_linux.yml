@@ -1,8 +1,7 @@
 - name: ad VM
   hosts: all
   become: yes
-    tasks:
-  
+    tasks:  
       - name: Instalar Pacotes para Integracao com AD.
         dnf:
            name:
