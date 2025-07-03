@@ -1,9 +1,20 @@
 - name: Register
   hosts: all
+  become: yes
+  collections:
+    - community.general
   tasks:
-    - name: Register as user (joe_user) with password (somepass) and auto-subscribe to available content.
-      redhat_subscription:
+    - name: Registrar no Red Hat Subscription Manager (modo user/pass)
+      community.general.redhat_subscription:
         state: present
-        username: joe_user
-        password: somepass
+        username: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
         auto_attach: true
+      when: rhsm_activation_key is not defined or rhsm_activation_key == ''
+
+    - name: Registrar com activation key
+      community.general.redhat_subscription:
+        state: present
+        activationkey: "{{ rhsm_activation_key }}"
+        org_id: "{{ rhsm_org_id }}"
+      when: rhsm_activation_key is defined and rhsm_activation_key != ''
