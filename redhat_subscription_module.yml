@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   collections:
-    - community
+    - community.general
   tasks:
     - name: Registrar no Red Hat Subscription Manager (modo user/pass)
       community.general.redhat_subscription:
