@@ -1,3 +1,6 @@
+- name: Reboot VM
+  hosts: all
+  tasks:  
     - name: Verificar status atual do SELinux
       ansible.builtin.command: getenforce
       register: selinux_status
