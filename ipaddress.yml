@@ -1,1 +1,21 @@
-https://interview.codejudge.io/71d899e1653543a59578de7c29c93837?user_type=DEVELOPER
+- name: deploy qualys agent
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Configure static IP address using nmcli
+      nmcli:
+        conn_name: "your_connection_name" # Replace with your connection name
+        type: ethernet
+        ip4: "your_static_ip/24"  # Replace with your desired IP and subnet
+        gateway4: "your_gateway_ip"  # Replace with your gateway IP
+        dns4: "your_dns_ip"  # Replace with your DNS server IP
+        state: present
+        autoconnect: yes
+      notify:
+        - restart network
+  handlers:
+    - name: restart network
+      service:
+        name: network
+        state: restarted
