@@ -1,7 +1,6 @@
-- name: Reboot VM
-  collections:
-    - ansible.windows
+- name: ad VM
   hosts: all
+  become: yes
     tasks:
   
       - name: Instalar Pacotes para Integracao com AD.
