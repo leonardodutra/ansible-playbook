@@ -1,4 +1,4 @@
-- name: Reboot VM
+- name: Disable selinux VM
   hosts: all
   tasks:  
     - name: Verificar status atual do SELinux
