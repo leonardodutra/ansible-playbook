@@ -10,6 +10,7 @@
           - gcc-c++
           - nodejs
           - gettext
+          - yum-utils
           - device-mapper-persistent-data
           - lvm2
           - bzip2
