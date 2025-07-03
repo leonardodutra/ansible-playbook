@@ -1,5 +1,6 @@
 - name: deploy sss
   hosts: all
+  become: yes
   tasks:
     - name: Install required packages
       package:
