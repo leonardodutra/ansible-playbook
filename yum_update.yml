@@ -1,5 +1,6 @@
 - name: Register
   hosts: all
+  become: true
   tasks:
     - name: Executar yum update
       ansible.builtin.yum:
