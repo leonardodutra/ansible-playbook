@@ -1,5 +1,6 @@
 - name: Disable selinux VM
   hosts: all
+  become: true
   tasks:  
     - name: Verificar status atual do SELinux
       ansible.builtin.command: getenforce
