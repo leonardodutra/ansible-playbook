@@ -1,87 +1,71 @@
-- name: Configurar Autenticacao AD.
-  hosts: novo
-  become: yes
-  gather_facts: false
-  vars:
-      ansible_python_interpreter: /usr/bin/python3
-
-  vars_prompt:
-
-  # I had to use user@WORKGROUP.COM to be sucessful
-    - name: JOINACCT
-      prompt: "Username for domain join (Insira o login)"
-      private: no
-
-  # CASE SENSITIVE
-    - name: JOINPWD
-      prompt: "Password for domain join (Insira a Senha)"
-      private: yes
-
-  tasks:
-
-    - name: Instalar Pacotes para Integracao com AD.
-      dnf:
-         name:
-           - realmd
-           - sssd
-           - oddjob
-           - oddjob-mkhomedir
-           - adcli
-           - samba-common
-           - samba-common-tools
-           - krb5-workstation
-           - openldap-clients
-           - chrony
-         state: present
-
-    - name: UnJoin the Server
-      shell: "realm leave; realm leave; realm leave; realm leave"
-      ignore_errors: true
-
-    - name: Adicionar ao Dominio usando realm.
-      shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
-      ignore_errors: true
-
-    - name: Enable sssd with NSS and PAM.
-      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
-      ignore_errors: true
-
-    - name: Copiar kerberos.
-      copy:
-        src: "krb5.conf"
-        dest: "/etc/"
-        backup: yes
-
-    - name: Copiar samba.
-      copy:
-        src: "smb.conf"
-        dest: "/etc/samba/"
-        backup: yes
-
-    - name: Copiar chrony.
-      copy:
-        src: "chrony-realm.conf"
-        dest: "/etc/chrony.conf"
-        backup: yes
-
-    - name: Restart service chronyd.
-      ansible.builtin.service:
-        name: chronyd
-        state: restarted
-        enabled: yes
-
-    - name: Copy sssd.
-      copy:
-        src: "sssd.conf"
-        dest: "/etc/sssd/sssd.conf"
-        owner: root
-        group: root
-        mode: '0600'
-        backup: yes
-
-    - name: Restart service sssd.
-      ansible.builtin.service:
-        name: sssd
-        state: restarted
-        enabled: yes
-n
+- name: Reboot VM
+  collections:
+    - ansible.windows
+  hosts: all
+    tasks:
+  
+      - name: Instalar Pacotes para Integracao com AD.
+        dnf:
+           name:
+             - realmd
+             - sssd
+             - oddjob
+             - oddjob-mkhomedir
+             - adcli
+             - samba-common
+             - samba-common-tools
+             - krb5-workstation
+             - openldap-clients
+             - chrony
+           state: present
+  
+      - name: UnJoin the Server
+        shell: "realm leave; realm leave; realm leave; realm leave"
+        ignore_errors: true
+  
+      - name: Adicionar ao Dominio usando realm.
+        shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
+        ignore_errors: true
+  
+      - name: Enable sssd with NSS and PAM.
+        shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
+        ignore_errors: true
+  
+      - name: Copiar kerberos.
+        copy:
+          src: "krb5.conf"
+          dest: "/etc/"
+          backup: yes
+  
+      - name: Copiar samba.
+        copy:
+          src: "smb.conf"
+          dest: "/etc/samba/"
+          backup: yes
+  
+      - name: Copiar chrony.
+        copy:
+          src: "chrony-realm.conf"
+          dest: "/etc/chrony.conf"
+          backup: yes
+  
+      - name: Restart service chronyd.
+        ansible.builtin.service:
+          name: chronyd
+          state: restarted
+          enabled: yes
+  
+      - name: Copy sssd.
+        copy:
+          src: "sssd.conf"
+          dest: "/etc/sssd/sssd.conf"
+          owner: root
+          group: root
+          mode: '0600'
+          backup: yes
+  
+      - name: Restart service sssd.
+        ansible.builtin.service:
+          name: sssd
+          state: restarted
+          enabled: yes
