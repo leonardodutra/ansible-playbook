@@ -64,6 +64,6 @@
       shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
       ignore_errors: true
   
-#    - name: Enable sssd with NSS and PAM.
-#      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
-#      ignore_errors: true
+    - name: Enable sssd with NSS and PAM.
+      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
+      ignore_errors: true
