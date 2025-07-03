@@ -1,6 +1,4 @@
 - name: deploy sss
-  collections:
-    - ansible.windows
   hosts: all
   tasks:
     - name: Install required packages
