@@ -1,0 +1,20 @@
+- name: Instalar pacotes necessários via YUM
+  hosts: all
+  become: yes
+  tasks:
+    - name: Instalar pacotes com yum
+      ansible.builtin.yum:
+        name:
+          - git
+          - gcc
+          - gcc-c++
+          - ansible
+          - nodejs
+          - gettext
+          - device-mapper-persistent-data
+          - lvm2
+          - bzip2
+          - python3-pip
+          - nano
+          - wget
+        state: present
