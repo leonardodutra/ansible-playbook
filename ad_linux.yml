@@ -17,9 +17,9 @@
             - chrony
           state: present
   
-    - name: UnJoin the Server
-      shell: "realm leave; realm leave; realm leave; realm leave"
-      ignore_errors: true
+#    - name: UnJoin the Server
+#      shell: "realm leave; realm leave; realm leave; realm leave"
+#      ignore_errors: true
   
     - name: Adicionar ao Dominio usando realm.
       shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
