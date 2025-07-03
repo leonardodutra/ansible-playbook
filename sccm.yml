@@ -1,16 +1,46 @@
-- name: deploy sccm agent
+- name: deploy sss
   collections:
     - ansible.windows
   hosts: all
   tasks:
-    - name:  Copy SCCM to c:\temp\
-      ansible.windows.win_powershell:
-         script: |
-          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
-          robocopy Z:\. C:\temp\ /e
-          net use Z: /delete
+    - name: Install required packages
+      package:
+        name:
+          - realmd
+          - sssd
+          - oddjob
+          - oddjob-mkhomedir
+          - adcli
+          - samba-common
+          - samba-common-tools
+          - krb5-workstation
+          - sssd-tools
+        state: present
 
-    - name: Run my batch file (using win_command - less common for .bat)
-      ansible.windows.win_command: C:\\temp\\Client_SCCM_Install_Local.bat
-      args:
-        chdir: C:\\temp\\
+    - name: Ensure oddjobd is running
+      service:
+        name: oddjobd
+        state: started
+        enabled: yes
+
+    - name: Join the machine to AD domain
+      expect:
+        command: realm join {{ domain_name }} -U {{ domain_user }}
+        responses:
+          Password for *: "{{ domain_password }}"
+      register: join_result
+      failed_when: "'failed' in join_result.stderr.lower()"
+
+    - name: Configure SSSD to create home directories on login
+      lineinfile:
+        path: /etc/sssd/sssd.conf
+        regexp: '^fallback_homedir'
+        line: 'fallback_homedir = /home/%u'
+        insertafter: '[domain/{{ domain_name | lower }}]'
+        create: yes
+        mode: '0600'
+
+    - name: Restart SSSD
+      service:
+        name: sssd
+        state: restarted
