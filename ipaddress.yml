@@ -1,10 +1,10 @@
 - name: deploy qualys agent
   collections:
-    - ansible.windows
+    - community.general
   hosts: all
   tasks:
     - name: Add an Team connection with static IP configuration
-      community.general.nmcli:
+      nmcli:
         conn_name: my-team1
         ifname: my-team1
         type: team
