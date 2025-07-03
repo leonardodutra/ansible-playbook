@@ -3,12 +3,12 @@
     - community.general
   hosts: all
   tasks:
-    - name: Add an Team connection with static IP configuration
-      nmcli:
+    - name: Create a team connection with static IP configuration
+      community.general.nmcli:
         conn_name: my-team1
         ifname: my-team1
         type: team
         ip4: 192.0.2.100/24
         gw4: 192.0.2.1
+        autoconnect: yes
         state: present
-        autoconnect: true
