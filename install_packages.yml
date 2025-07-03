@@ -2,6 +2,11 @@
   hosts: all
   become: yes
   tasks:
+    - name: Instalar pacote EPEL release
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+        
     - name: Instalar pacotes com yum
       ansible.builtin.yum:
         name:
