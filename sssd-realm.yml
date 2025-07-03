@@ -11,11 +11,11 @@
           - samba-common
         state: present
 
-    - name: Ensure oddjobd is running
-      service:
-        name: oddjobd
-        state: started
-        enabled: yes
+#    - name: Ensure oddjobd is running
+#      service:
+#        name: oddjobd
+#        state: started
+#        enabled: yes
 
     - name: Join the machine to AD domain
       expect:
