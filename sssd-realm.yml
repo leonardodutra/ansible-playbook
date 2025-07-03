@@ -5,10 +5,14 @@
     - name: Install required packages
       package:
         name:
-          - realmd
-          - sssd
-          - adcli
-          - samba-common
+          - "realmd"
+          - "oddjob"
+          - "oddjob-mkhomedir"
+          - "adcli"
+          - "samba-common"
+          - "samba-common-tools"
+          - "krb5-workstation"
+          - "openldap-clients"
         state: present
 
 #    - name: Ensure oddjobd is running
