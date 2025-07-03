@@ -21,13 +21,13 @@
 #      shell: "realm leave; realm leave; realm leave; realm leave"
 #      ignore_errors: true
   
-    - name: Adicionar ao Dominio usando realm.
-      shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
-      ignore_errors: true
+#    - name: Adicionar ao Dominio usando realm.
+#      shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
+#      ignore_errors: true
   
-    - name: Enable sssd with NSS and PAM.
-      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
-      ignore_errors: true
+#    - name: Enable sssd with NSS and PAM.
+#      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
+#      ignore_errors: true
   
     - name: Copiar kerberos.
       copy:
@@ -47,11 +47,11 @@
         dest: "/etc/chrony.conf"
         backup: yes
   
-    - name: Restart service chronyd.
-      ansible.builtin.service:
-        name: chronyd
-        state: restarted
-        enabled: yes
+#    - name: Restart service chronyd.
+#      ansible.builtin.service:
+#        name: chronyd
+#        state: restarted
+#        enabled: yes
   
     - name: Copy sssd.
       copy:
@@ -62,8 +62,8 @@
         mode: '0600'
         backup: yes
         
-    - name: Restart service sssd.
-      ansible.builtin.service:
-        name: sssd
-        state: restarted
-        enabled: yes
+#   - name: Restart service sssd.
+#      ansible.builtin.service:
+#        name: sssd
+#        state: restarted
+#        enabled: yes
