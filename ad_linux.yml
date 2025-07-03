@@ -58,7 +58,7 @@
       shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
       ignore_errors: true
 
-   - name: Restart service sssd.
+    - name: Restart service sssd.
       ansible.builtin.service:
         name: sssd
         state: restarted
