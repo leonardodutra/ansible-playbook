@@ -1,1 +1,9 @@
-
+- name: Register
+  hosts: all
+  tasks:
+    - name: Register as user (joe_user) with password (somepass) and auto-subscribe to available content.
+      community.general.redhat_subscription:
+        state: present
+        username: joe_user
+        password: somepass
+        auto_attach: true
