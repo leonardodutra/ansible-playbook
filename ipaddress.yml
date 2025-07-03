@@ -3,19 +3,12 @@
     - ansible.windows
   hosts: all
   tasks:
-    - name: Configure static IP address using nmcli
-      nmcli:
-        conn_name: "your_connection_name" # Replace with your connection name
-        type: ethernet
-        ip4: "your_static_ip/24"  # Replace with your desired IP and subnet
-        gateway4: "your_gateway_ip"  # Replace with your gateway IP
-        dns4: "your_dns_ip"  # Replace with your DNS server IP
+    - name: Add an Team connection with static IP configuration
+      community.general.nmcli:
+        conn_name: my-team1
+        ifname: my-team1
+        type: team
+        ip4: 192.0.2.100/24
+        gw4: 192.0.2.1
         state: present
-        autoconnect: yes
-      notify:
-        - restart network
-  handlers:
-    - name: restart network
-      service:
-        name: network
-        state: restarted
+        autoconnect: true
