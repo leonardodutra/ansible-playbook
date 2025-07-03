@@ -8,7 +8,6 @@
           - git
           - gcc
           - gcc-c++
-          - ansible
           - nodejs
           - gettext
           - device-mapper-persistent-data
