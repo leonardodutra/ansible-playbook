@@ -17,18 +17,6 @@
             - chrony
           state: present
   
-#    - name: UnJoin the Server
-#      shell: "realm leave; realm leave; realm leave; realm leave"
-#      ignore_errors: true
-  
-#    - name: Adicionar ao Dominio usando realm.
-#      shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
-#      ignore_errors: true
-  
-#    - name: Enable sssd with NSS and PAM.
-#      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
-#      ignore_errors: true
-  
     - name: Copiar kerberos.
       copy:
         src: "krb5.conf"
@@ -67,3 +55,15 @@
 #        name: sssd
 #        state: restarted
 #        enabled: yes
+
+#    - name: UnJoin the Server
+#      shell: "realm leave; realm leave; realm leave; realm leave"
+#      ignore_errors: true
+  
+    - name: Adicionar ao Dominio usando realm.
+      shell: echo '{{JOINPWD}}' | realm join SCL.CORP -U {{JOINACCT}}
+      ignore_errors: true
+  
+#    - name: Enable sssd with NSS and PAM.
+#      shell: /sbin/authconfig --enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update
+#      ignore_errors: true
