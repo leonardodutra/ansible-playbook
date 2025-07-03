@@ -10,11 +10,3 @@
         username: "{{ rhsm_username }}"
         password: "{{ rhsm_password }}"
         auto_attach: true
-      when: rhsm_activation_key is not defined or rhsm_activation_key == ''
-
-    - name: Registrar com activation key
-      community.general.redhat_subscription:
-        state: present
-        activationkey: "{{ rhsm_activation_key }}"
-        org_id: "{{ rhsm_org_id }}"
-      when: rhsm_activation_key is defined and rhsm_activation_key != ''
