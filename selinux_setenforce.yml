@@ -1,0 +1,15 @@
+    - name: Verificar status atual do SELinux
+      ansible.builtin.command: getenforce
+      register: selinux_status
+      changed_when: false
+
+    - name: Desativar temporariamente (runtime)
+      ansible.builtin.command: setenforce 0
+      when: selinux_status.stdout != "Disabled"
+      ignore_errors: yes
+
+    - name: Desativar permanentemente no arquivo /etc/selinux/config
+      ansible.builtin.replace:
+        path: /etc/selinux/config
+        regexp: '^SELINUX=.*'
+        replace: 'SELINUX=disabled'
