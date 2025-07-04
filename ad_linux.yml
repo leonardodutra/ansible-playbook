@@ -5,7 +5,6 @@
     - name: Instalar Pacotes para Integracao com AD.
       dnf:
           name:
-            - authconfig
             - realmd
             - sssd
             - oddjob
