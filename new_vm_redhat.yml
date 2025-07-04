@@ -6,6 +6,7 @@
   tasks:
     - name: Deploy Linux VM from template
       community.vmware.vmware_guest:
+        vcenter_hostname: "{{ vcenter_hostname }}"
         validate_certs: "{{ validate_certs }}"
         name: "{{ vm_name }}"
         template: "{{ template_name }}"
