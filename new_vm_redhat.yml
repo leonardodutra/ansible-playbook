@@ -5,9 +5,6 @@
   tasks:
     - name: Deploy Linux VM from template
       community.vmware.vmware_guest:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_passwd }}"
         validate_certs: "{{ validate_certs }}"
         name: "{{ vm_name }}"
         template: "{{ template_name }}"
@@ -58,9 +55,9 @@
       debug:
         msg: "{{ wait_result }}"
 
-    - name: Add VM to Ansible inventory
-      ansible.builtin.add_host:
-        name: "{{ vm_name }}"
-        ansible_host: "{{ ip_address }}"
-        groups: new_vms
-      when: vm_deploy is success
+#    - name: Add VM to Ansible inventory
+#      ansible.builtin.add_host:
+#        name: "{{ vm_name }}"
+#        ansible_host: "{{ ip_address }}"
+#        groups: new_vms
+#      when: vm_deploy is success
