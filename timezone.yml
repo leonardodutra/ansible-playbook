@@ -1,8 +1,9 @@
-- name: set timezone
-  collections:
-    - ansible.windows
+- name: Set Windows Timezone
   hosts: all
+  collections:
+    - community.windows
+
   tasks:
-    - name: Set timezone to E. South America Standard Time
+    - name: Set timezone to E. South America Standard Time (GMT-3)
       community.windows.win_timezone:
-        timezone: {{ timezone }}
+        timezone: "E. South America Standard Time"
