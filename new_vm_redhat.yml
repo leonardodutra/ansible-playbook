@@ -5,6 +5,9 @@
   tasks:
     - name: Deploy Linux VM from template
       community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_passwd }}"
         validate_certs: "{{ validate_certs }}"
         name: "{{ vm_name }}"
         template: "{{ template_name }}"
@@ -13,8 +16,8 @@
         cluster: "{{ cluster_name }}"
         datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ var_memory_mb }}"
-          num_cpus: "{{ var_num_cpus }}"
+          memory_mb: "{{ var_mem }}"
+          num_cpus: "{{ var_cpu }}"
           scsi: paravirtual
         networks:
           - name: "{{ network_name }}"
@@ -25,12 +28,15 @@
             connected: true
             type: static
             ip: "{{ ip_address }}"
-            netmask: "{{ var_subnet_mask }}"
-            gateway: "{{ var_gateway }}"
+            netmask: "{{ subnet_mask }}"
+            gateway: "{{ gateway }}"
             dns_servers:
-              - "{{ dns_server1 }}"
-              - "{{ dns_server2 }}"
+              - "{{ var_dns1 }}"
+              - "{{ var_dns2 }}"
             state: present
+        customization:
+          hostname: "{{ hostname }}"
+        wait_for_customization: true
         state: poweredon
         wait_for_ip_address: true
       delegate_to: localhost
@@ -40,3 +46,21 @@
       ansible.builtin.debug:
         var: vm_deploy
       when: vm_deploy.failed
+
+    - name: Wait for SSH to be available
+      ansible.builtin.wait_for_connection:
+        timeout: 300
+      register: wait_result
+      delegate_facts: true
+      delegate_to: localhost
+
+    - name: Debug wait result
+      debug:
+        msg: "{{ wait_result }}"
+
+    - name: Add VM to Ansible inventory
+      ansible.builtin.add_host:
+        name: "{{ vm_name }}"
+        ansible_host: "{{ ip_address }}"
+        groups: new_vms
+      when: vm_deploy is success
