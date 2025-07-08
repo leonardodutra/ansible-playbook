@@ -1,6 +1,6 @@
 - name: set timezone
   collections:
-    - ansible.windows
+    - community.windows
   hosts: all
   tasks:
     - name: Configure Windows region
