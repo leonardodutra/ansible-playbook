@@ -5,6 +5,6 @@
   tasks:
     - name: Configure Windows region
       community.windows.win_region:
-        location: 32
-        format: "pt-BR" # Example format
-        copy_settings: true
+        location: 32              # Código da região: Brazil
+        format: "pt-BR"           # Formato de exibição regional
+        copy_settings: true       # Copiar configurações para tela de login e novos usuários
