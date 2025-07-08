@@ -1,8 +1,6 @@
 - name: deploy MMA agent
   collections:
     - ansible.windows
-  gather_facts: no
-  become: false
   hosts: all
   tasks:
 
