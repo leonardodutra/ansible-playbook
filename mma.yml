@@ -22,14 +22,11 @@
       ansible.windows.win_command: >
        "C:\\temp\\MMASetup-AMD64-10.20.18076.0.exe" /quiet
 
-    #- name:  Execute MMA
-#      ansible.windows.win_powershell:
-#         script: |
-#          net use Z: {{ fileserver_path }}
-#          copy Z:\MMASetup-AMD64-10.20.18076.0.exe C:\temp\
-#          $workspaceIdSentinel = {{ mma_workspace_key }}
- #         $workspaceKey = {{ mma_workspace_id }}
-#          $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
-#          $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
-#          $mma.ReloadConfiguration()
-#          net use Z: /delete
+    - name:  Execute MMA
+      ansible.windows.win_powershell:
+         script: |
+          $workspaceIdSentinel = {{ mma_workspace_key }}
+          $workspaceKey = {{ mma_workspace_id }}
+          $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
+          $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
+          $mma.ReloadConfiguration()
