@@ -3,11 +3,15 @@
     - ansible.windows
   hosts: all
   tasks:
+    - name: Copy installer from network share
+      ansible.windows.win_command: >
+        cmd.exe /c copy "{{ fileserver_path }}" "{{ local_path }}"
+      args:
+        creates: "{{ local_path }}"
+
     - name: Install MMA silently
       ansible.windows.win_command: >
-        "{{ fileserver_path }}"
-        /quiet
-        
+        "{{ local_path }}" /quiet
 #    - name:  Execute MMA
 #      ansible.windows.win_powershell:
 #         script: |
