@@ -19,7 +19,7 @@
           net use Z: /delete
 
     - name: Install MMA silently
-      ansible.windows.win_command: "C:\temp\MMASetup-AMD64-10.20.18076.0.exe" /quiet
+      ansible.windows.win_command: "C:\\temp\\MMASetup-AMD64-10.20.18076.0.exe" /quiet
 
     - name:  Execute MMA
       ansible.windows.win_powershell:
