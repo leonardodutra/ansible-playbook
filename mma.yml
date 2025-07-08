@@ -20,7 +20,7 @@
 
     - name: Install 7zip from a network share with specific credentials
       ansible.windows.win_package:
-        path: {{ fileserver_path }}\MMASetup-AMD64-10.20.18076.0.exe
+        path: C:\\temp\\MMASetup-AMD64-10.20.18076.0.exe
         arguments: /S
         state: present
 
