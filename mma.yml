@@ -13,5 +13,5 @@
     - name: Install Microsoft Monitoring Agent
       ansible.windows.win_package:
         path: C:\temp\MMASetup-AMD64-10.20.18076.0.exe # Path on the target server
-        arguments: "/silent /install /log C:\temp\mtall.log /MMA_WORKSPACE_ID={{ mma_workspace_id }} /MMA_WORKSPACE_KEY={{ mma_workspace_key }}" # Replace with actual installer arguments
+        arguments: "/silent /install /MMA_WORKSPACE_ID={{ mma_workspace_id }} /MMA_WORKSPACE_KEY={{ mma_workspace_key }}" # Replace with actual installer arguments
         state: installed
