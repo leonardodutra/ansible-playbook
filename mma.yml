@@ -5,15 +5,30 @@
   become: false
   hosts: all
   tasks:
-    - name: Copy installer from network share
-      ansible.windows.win_command: >
-        cmd.exe /c copy "{{ fileserver_path }}" "{{ local_path }}"
-      args:
-        creates: "{{ local_path }}"
 
-    - name: Install MMA silently
-      ansible.windows.win_command: >
-       "C:\\temp\\MMASetup-AMD64-10.20.18076.0.exe" /quiet
+
+- name: Apply SCCM
+  collections:
+    - community.vmware
+  hosts: all
+  tasks:
+
+    - name:  Copy MMA artifacts
+      ansible.windows.win_powershell:
+         script: |
+          net use Z: {{ fileserver_path }}
+          robocopy Z:\. C:\temp\ /e
+          net use Z: /delete
+
+#    - name: Copy installer from network share
+#      ansible.windows.win_command: >
+#        cmd.exe /c copy "{{ fileserver_path }}" "{{ local_path }}"
+#      args:
+#        creates: "{{ local_path }}"
+
+#    - name: Install MMA silently
+#      ansible.windows.win_command: >
+#       "C:\\temp\\MMASetup-AMD64-10.20.18076.0.exe" /quiet
 #    - name:  Execute MMA
 #      ansible.windows.win_powershell:
 #         script: |
