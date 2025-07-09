@@ -7,7 +7,7 @@
     workspace_id: "{{ mma_workspace_id }}"
     workspace_key: "{{ mma_workspace_key }}"
     mma_download_url: "https://go.microsoft.com/fwlink/?LinkID=828603"
-    mma_installer: "C:\\Temp\\MMASetup-AMD64.exe"
+    mma_installer: "C:\\temp\\MMASetup-AMD64.exe"
     install_args: >
       /qn ADD_OPINSIGHTS_WORKSPACE=1
       OPINSIGHTS_WORKSPACE_ID={{ workspace_id }}
