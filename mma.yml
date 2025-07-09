@@ -21,8 +21,8 @@
     - name:  Execute MMA
       ansible.windows.win_powershell:
          script: |
-          $workspaceIdSentinel = "{{ mma_workspace_key }}"
-          $workspaceKey = "{{ mma_workspace_id }}"
+          $workspaceIdSentinel = {{ mma_workspace_key }}
+          $workspaceKey = {{ mma_workspace_id }}
           $mma = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
           $mma.AddCloudWorkspace($workspaceIdSentinel, $workspaceKey)
           $mma.ReloadConfiguration()
