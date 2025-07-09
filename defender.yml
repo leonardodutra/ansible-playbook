@@ -8,9 +8,6 @@
         src: "WindowsDefenderATPLocalOnboardingScript_2019-2025.cmd" # Verify this path
         dest: C:\temp\
         
-    - name: Execute Defender Activation Script
-      ansible.windows.win_shell:
-        # Specify the full path to the .cmd file on the target server
-        # Ensure the file is present on the target server before this task runs
-        # You might use win_copy to transfer the file if it's not already there
-        command: echo Y | C:\temp\WindowsDefenderATPLocalOnboardingScript_2019-2025.cmd
+    - name: Executar script de ativação Defender ATP
+      ansible.windows.win_shell: |
+        cmd.exe /c "echo Y | C:\\temp\\WindowsDefenderATPLocalOnboardingScript_2019-2025.cmd"
