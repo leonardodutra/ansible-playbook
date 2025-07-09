@@ -3,12 +3,6 @@
     - ansible.windows
   hosts: all
   tasks:
-
-
-- name: Apply SCCM
-  collections:
-    - community.vmware
-  hosts: all
   vars:
     workspace_id: "{{ mma_workspace_id }}"
     workspace_key: "{{ mma_workspace_key }}"
