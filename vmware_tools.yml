@@ -1,0 +1,14 @@
+- name: deploy vmware tools
+  collections:
+    - ansible.windows
+  hosts: all
+  tasks:
+    - name: Copy Vmware 
+      ansible.windows.win_powershell:
+        script: |
+          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
+          copy Z:\VMware-tools-12.3.5-22544099-x86_64.exe C:\temp\
+          net use Z: /delete
+  
+    - name: Install vmware tools
+      ansible.windows.win_command: '"C:\temp\VMware-tools-12.3.5-22544099-x86_64.exe" /S /v"/qn REBOOT=R ADDLOCAL=ALL REMOVE=AppDefense,FileIntrospection,NetworkIntrospection,Hgfs" /ru SYSTEM /rl HIGHEST /l C:\VMwareToolsInstall.log'
