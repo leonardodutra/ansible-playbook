@@ -5,14 +5,10 @@
     workspace_id: "{{ mma_workspace_id }}"
     workspace_key: "{{ mma_workspace_key }}"
     mma_download_url: "https://go.microsoft.com/fwlink/?LinkID=828603"
-    mma_installer_path: "C:\\Temp\\MMASetup-AMD64.exe"
-    mma_extract_path: "C:\\Temp\\MMAExtract"
+    mma_installer_path: "C:\\temp\\MMASetup-AMD64.exe"
+    mma_extract_path: "C:\\temp\\MMAExtract"
 
   tasks:
-    - name: Garantir diretório C:\Temp
-      ansible.windows.win_file:
-        path: "C:\\Temp"
-        state: directory
 
     - name: Baixar o instalador do MMA
       ansible.windows.win_get_url:
@@ -24,7 +20,7 @@
       ansible.windows.win_shell: >
         "{{ mma_installer_path }}" /Q /C /T:{{ mma_extract_path }}
       args:
-        chdir: "C:\\Temp"
+        chdir: "C:\\temp"
 
     - name: Instalar Microsoft Monitoring Agent
       ansible.windows.win_shell: >
