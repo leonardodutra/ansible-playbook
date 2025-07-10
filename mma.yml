@@ -20,11 +20,11 @@
 #          robocopy Z:\. C:\temp\ /e
 #          net use Z: /delete
 
-    - name: Download MMA agent
-      ansible.windows.win_get_url:
-        url: "{{ mma_download_url }}"
-        dest: "{{ mma_installer }}"
-        validate_certs: no
+#    - name: Download MMA agent
+#      ansible.windows.win_get_url:
+#        url: "{{ mma_download_url }}"
+#        dest: "{{ mma_installer }}"
+#        validate_certs: no
 
     - name: Install MMA agent silently
       ansible.windows.win_package:
