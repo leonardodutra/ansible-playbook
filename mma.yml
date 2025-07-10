@@ -2,7 +2,6 @@
   collections:
     - ansible.windows
   hosts: all
-  tasks:
   vars:
     workspace_id: "{{ mma_workspace_id }}"
     workspace_key: "{{ mma_workspace_key }}"
