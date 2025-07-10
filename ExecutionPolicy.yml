@@ -9,18 +9,9 @@
     username: "guest"  # Altere para o nome do usuário a ser removido
 
   tasks:
-    - name: Remove user account
+    - name: Disable built-in user account (e.g., Guest)
       ansible.windows.win_user:
-        name: "{{ username }}"
-        state: absent
-
-    - name: Delete user profile from disk
-      ansible.windows.win_command: >
-        cmd.exe /c "wmic path win32_userprofile where name='{{ username }}' delete"
-      register: profile_removal
-      failed_when: false  # Evita falha se o perfil já estiver ausente
-
-    - name: Mostrar resultado
-      ansible.builtin.debug:
-        var: profile_removal.stdout_lines
+        name: Guest
+        account_disabled: yes
+        state: present
 
