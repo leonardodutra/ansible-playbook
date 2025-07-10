@@ -47,3 +47,10 @@
       ansible.builtin.debug:
         var: vm_deploy
       when: vm_deploy.failed
+
+    - name: Add VM to Ansible inventory
+      ansible.builtin.add_host:
+        name: "{{ vm_name }}"
+        ansible_host: "{{ ip_address }}"
+        groups: Windows_servers
+      when: vm_deploy is success
