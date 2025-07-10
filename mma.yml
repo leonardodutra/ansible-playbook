@@ -1,4 +1,4 @@
-- name: deploy MMA agent
+- name: Deploy MMA agent on Windows
   collections:
     - ansible.windows
   hosts: all
@@ -6,28 +6,20 @@
     workspace_id: "{{ mma_workspace_id }}"
     workspace_key: "{{ mma_workspace_key }}"
     mma_download_url: "https://go.microsoft.com/fwlink/?LinkID=828603"
-    mma_installer: "C:\\temp\\MMASetup-AMD64.exe"
+    mma_installer: "C:\\Temp\\MMASetup-AMD64.exe"
     install_args: >
-      /qn ADD_OPINSIGHTS_WORKSPACE=1
+      /Q
+      ADD_OPINSIGHTS_WORKSPACE=1
       OPINSIGHTS_WORKSPACE_ID={{ workspace_id }}
       OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }}
       AcceptEndUserLicenseAgreement=1
   tasks:
- #   - name:  Copy MMA artifacts
-#      ansible.windows.win_powershell:
-#         script: |
-#          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
-#          robocopy Z:\. C:\temp\ /e
-#          net use Z: /delete
+    - name: Download MMA agent
+      ansible.windows.win_get_url:
+        url: "{{ mma_download_url }}"
+        dest: "{{ mma_installer }}"
+        validate_certs: no
 
-#    - name: Download MMA agent
-#      ansible.windows.win_get_url:
-#        url: "{{ mma_download_url }}"
-#        dest: "{{ mma_installer }}"
-#        validate_certs: no
-
-    - name: Install MMA agent silently
-      ansible.windows.win_package:
-        path: "{{ mma_installer }}"
-        arguments: "{{ install_args }}"
-        state: present
+    - name: Install Microsoft Monitoring Agent silently
+      ansible.windows.win_shell: >
+        Start-Process -FilePath "{{ mma_installer }}" -ArgumentList '{{ install_args }}' -Wait
