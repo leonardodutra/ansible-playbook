@@ -25,13 +25,13 @@
         type: dword
 
     # 3. Atualizar VMware Tools (aplicável somente se for VM com suporte e ferramenta instalada)
-    - name: Verificar e atualizar VMware Tools
-      win_package:
-        path: "\\servidor-rede\vmware\VMware-tools-12.3.5-22544099-x86_64.exe"
-        product_id: VMware Tools
-        arguments: '/S /v"/qn REBOOT=ReallySuppress"'
-        state: present
-      when: ansible_facts.os_family == 'Windows'
+#    - name: Verificar e atualizar VMware Tools
+#      win_package:
+#        path: "\\servidor-rede\vmware\VMware-tools-12.3.5-22544099-x86_64.exe"
+#        product_id: VMware Tools
+#        arguments: '/S /v"/qn REBOOT=ReallySuppress"'
+#        state: present
+#      when: ansible_facts.os_family == 'Windows'
 
     # 4. Reiniciar após correções (se necessário)
     - name: Reiniciar se solicitado
