@@ -1,12 +1,27 @@
-- name: Deploy Machine
+- name:  Deploy Linux Server VM in VMWAre
   collections:
     - community.vmware
-    - ansible.windows
   hosts: all
+  tasks:
+  vars:
+    validate_certs: false
+    network_name: "{{ var_vlan }}"
+    ip_address: "{{ var_ip }}"
+    subnet_mask: "{{ var_mask }}"
+    gateway: "{{ var_gw }}"
+    dns_servers:
+      - "{{ var_dns1 }}"
+      - "{{ var_dns2 }}"
+        #    domain_name: "{{ var_dominio }}"
+    hostname: "{{ var_nome_vm }}"
+    domain_admin_user: n1-dtc-crpa@scl.corp
+    domain_admin_password: "{{ domain_n1_password }}"
+    ansible_ssh_user: administrator
+    ansible_ssh_pass: "{{ local_password }}"
+
   tasks:
     - name: Deploy Linux VM from template
       community.vmware.vmware_guest:
-        vcenter_hostname: "{{ vcenter_hostname }}"
         validate_certs: "{{ validate_certs }}"
         name: "{{ vm_name }}"
         template: "{{ template_name }}"
@@ -15,7 +30,7 @@
         cluster: "{{ cluster_name }}"
         datastore: "{{ datastore_name }}"
         hardware:
-          memory_mb: "{{ var_memory_mb }}"
+          memory_mb: "{{ var_mem }}"
           num_cpus: "{{ var_cpu }}"
           scsi: paravirtual
         networks:
@@ -56,10 +71,3 @@
     - name: Debug wait result
       debug:
         msg: "{{ wait_result }}"
-
-#    - name: Add VM to Ansible inventory
-#      ansible.builtin.add_host:
-#        name: "{{ vm_name }}"
-#        ansible_host: "{{ ip_address }}"
-#        groups: new_vms
-#      when: vm_deploy is success
