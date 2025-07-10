@@ -9,9 +9,31 @@
     username: "guest"  # Altere para o nome do usuário a ser removido
 
   tasks:
-    - name: Disable built-in user account (e.g., Guest)
+    # 1. Desabilitar conta Guest do Windows
+    - name: Desabilitar conta Guest
       ansible.windows.win_user:
         name: Guest
         account_disabled: yes
         state: present
 
+    # 2. Desativar criptografia de 64 bits (Sweet32) via GPO
+    - name: Desabilitar RC4, 3DES e outras cifras inseguras (Sweet32 mitigation)
+      ansible.windows.win_regedit:
+        path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168
+        name: Enabled
+        data: 0
+        type: dword
+
+    # 3. Atualizar VMware Tools (aplicável somente se for VM com suporte e ferramenta instalada)
+    - name: Verificar e atualizar VMware Tools
+      win_package:
+        path: "\\servidor-rede\vmware\VMware-tools-12.3.5-22544099-x86_64.exe"
+        product_id: VMware Tools
+        arguments: '/S /v"/qn REBOOT=ReallySuppress"'
+        state: present
+      when: ansible_facts.os_family == 'Windows'
+
+    # 4. Reiniciar após correções (se necessário)
+    - name: Reiniciar se solicitado
+      ansible.windows.win_reboot:
+        reboot_timeout: 600
