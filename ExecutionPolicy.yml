@@ -1,8 +1,10 @@
-- name: deploy qualys agent
+- name: Remove Windows user
   collections:
     - ansible.windows
-  hosts: all
   tasks:
-    - name: Set the execution policy to Unrestricted first
-      win_shell: Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force
-      tags: always
+    - name: Remove user account and profile
+      ansible.windows.win_user:
+        name: guest  # Replace with the actual username
+        state: absent
+        remove_profile: yes  # Set to true to remove the user's profile
+        append_groups: [] # Ensure the user is removed from all groups
