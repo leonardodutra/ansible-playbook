@@ -14,11 +14,11 @@
       OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }}
       AcceptEndUserLicenseAgreement=1
   tasks:
-    - name: Download MMA agent
-      ansible.windows.win_get_url:
-        url: "{{ mma_download_url }}"
-        dest: "{{ mma_installer }}"
-        validate_certs: no
+#    - name: Download MMA agent
+#      ansible.windows.win_get_url:
+#        url: "{{ mma_download_url }}"
+#        dest: "{{ mma_installer }}"
+#        validate_certs: no
 
     - name: Install Microsoft Monitoring Agent silently
       ansible.windows.win_shell: >
