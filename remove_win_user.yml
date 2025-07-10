@@ -1,0 +1,10 @@
+- name: Remove Windows user
+  collections:
+    - ansible.windows
+  tasks:
+    - name: Remove user account and profile
+      ansible.windows.win_user:
+        name: guest  # Replace with the actual username
+        state: absent
+        remove_profile: yes  # Set to true to remove the user's profile
+        append_groups: [] # Ensure the user is removed from all groups
