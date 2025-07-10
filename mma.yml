@@ -23,7 +23,7 @@
     - name: Extrair e instalar Microsoft Monitoring Agent
       ansible.windows.win_shell: |
         C:\temp\MMASetup-AMD64.exe /Q /C /T:C:\temp\MMAExtract
-        Start-Process -FilePath "C:\temp\MMAExtract\setup.exe" `
+        Start-Process -FilePath "C:\temp\MMAExtract\Setup.exe" `
           -ArgumentList "/qn ADD_OPINSIGHTS_WORKSPACE=1 OPINSIGHTS_WORKSPACE_ID={{ workspace_id }} OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }} AcceptEndUserLicenseAgreement=1" `
           -Wait
 
