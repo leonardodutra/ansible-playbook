@@ -14,12 +14,12 @@
       OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }}
       AcceptEndUserLicenseAgreement=1
   tasks:
-    - name:  Copy MMA artifacts
-      ansible.windows.win_powershell:
-         script: |
-          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
-          robocopy Z:\. C:\temp\ /e
-          net use Z: /delete
+ #   - name:  Copy MMA artifacts
+#      ansible.windows.win_powershell:
+#         script: |
+#          net use Z: {{ fileserver_path }} /user:{{ domain_admin_user }} {{ domain_admin_password }}
+#          robocopy Z:\. C:\temp\ /e
+#          net use Z: /delete
 
     - name: Download MMA agent
       ansible.windows.win_get_url:
