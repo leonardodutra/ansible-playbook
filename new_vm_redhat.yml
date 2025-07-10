@@ -13,8 +13,8 @@
       - "{{ var_dns1 }}"
       - "{{ var_dns2 }}"
         #    domain_name: "{{ var_dominio }}"
-    domain_admin_user: n1-dtc-crpa@scl.corp
-    domain_admin_password: "{{ domain_n1_password }}"
+    domain_admin_user: "{{ domain_admin_user }}"
+    domain_admin_password: "{{ domain_admin_password }}"
     ansible_ssh_user: administrator
     ansible_ssh_pass: "{{ local_password }}"
 
