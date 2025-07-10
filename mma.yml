@@ -10,17 +10,17 @@
 
   tasks:
 
-    - name: Baixar o instalador do MMA
-      ansible.windows.win_get_url:
-        url: "{{ mma_download_url }}"
-        dest: "{{ mma_installer_path }}"
-        validate_certs: no
+#    - name: Baixar o instalador do MMA
+#      ansible.windows.win_get_url:
+#        url: "{{ mma_download_url }}"
+#        dest: "{{ mma_installer_path }}"
+#        validate_certs: no
 
-    - name: Extrair instalador do MMA
-      ansible.windows.win_shell: >
-        "{{ mma_installer_path }}" /Q /C /T:{{ mma_extract_path }}
-      args:
-        chdir: "C:\\temp"
+#    - name: Extrair instalador do MMA
+#      ansible.windows.win_shell: >
+#        "{{ mma_installer_path }}" /Q /C /T:{{ mma_extract_path }}
+#      args:
+#        chdir: "C:\\temp"
 
     - name: Instalar Microsoft Monitoring Agent
       ansible.windows.win_shell: >
