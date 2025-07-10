@@ -1,11 +1,26 @@
-- name: Remove Windows user
+- name: Remove Windows user and delete profile
+  hosts: all
+  gather_facts: no
+  become: false
   collections:
     - ansible.windows
-  hosts: all
+
+  vars:
+    username: "guest"  # Altere para o nome do usuário a ser removido
+
   tasks:
-    - name: Remove user account and profile
+    - name: Remove user account
       ansible.windows.win_user:
-        name: guest  # Replace with the actual username
+        name: "{{ username }}"
         state: absent
-        remove_profile: yes  # Set to true to remove the user's profile
-        append_groups: [] # Ensure the user is removed from all groups
+
+    - name: Delete user profile from disk
+      ansible.windows.win_command: >
+        cmd.exe /c "wmic path win32_userprofile where name='{{ username }}' delete"
+      register: profile_removal
+      failed_when: false  # Evita falha se o perfil já estiver ausente
+
+    - name: Mostrar resultado
+      ansible.builtin.debug:
+        var: profile_removal.stdout_lines
+
