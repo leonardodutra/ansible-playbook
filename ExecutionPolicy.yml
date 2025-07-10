@@ -1,6 +1,7 @@
 - name: Remove Windows user
   collections:
     - ansible.windows
+  hosts: all
   tasks:
     - name: Remove user account and profile
       ansible.windows.win_user:
