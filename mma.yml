@@ -23,9 +23,9 @@
 #        chdir: "C:\\temp"
 
     - name: Instalar Microsoft Monitoring Agent
-      ansible.windows.win_shell: >
+      ansible.windows.win_shell: |
         Start-Process -FilePath "{{ mma_extract_path }}\\Setup.exe" `
-        -ArgumentList "/qn ADD_OPINSIGHTS_WORKSPACE=1 OPINSIGHTS_WORKSPACE_ID={{ workspace_id }} OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }} AcceptEndUserLicenseAgreement=1" `
-        -Wait
+          -ArgumentList '"/qn ADD_OPINSIGHTS_WORKSPACE=1 OPINSIGHTS_WORKSPACE_ID={{ workspace_id }} OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }} AcceptEndUserLicenseAgreement=1"' `
+          -Wait
       args:
         executable: powershell.exe
