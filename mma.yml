@@ -14,11 +14,11 @@
       OPINSIGHTS_WORKSPACE_KEY={{ workspace_key }}
       AcceptEndUserLicenseAgreement=1
   tasks:
-#    - name: Baixar o instalador do MMA
-#      ansible.windows.win_get_url:
-#        url: "https://go.microsoft.com/fwlink/?LinkID=828603"
-#        dest: "C:\\Temp\\MMASetup-AMD64.exe"
-#        validate_certs: no
+    - name: Baixar o instalador do MMA
+      ansible.windows.win_get_url:
+        url: "https://go.microsoft.com/fwlink/?LinkID=828603"
+        dest: "C:\\Temp\\MMASetup-AMD64.exe"
+        validate_certs: no
     
     - name: Extrair e instalar Microsoft Monitoring Agent
       ansible.windows.win_shell: |
