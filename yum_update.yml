@@ -2,7 +2,13 @@
   hosts: all
   become: yes
   tasks:
-    - name: Executar yum update
+   - name: Atualizar todos os pacotes com yum
       ansible.builtin.yum:
         name: '*'
         state: latest
+      register: yum_result
+      failed_when: yum_result.failed or yum_result.rc != 0
+ 
+    - name: Exibir resultado do yum update
+      debug:
+        var: yum_result
