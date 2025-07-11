@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   tasks:
-   - name: Atualizar todos os pacotes com yum
+    - name: Atualizar todos os pacotes com yum
       ansible.builtin.yum:
         name: '*'
         state: latest
