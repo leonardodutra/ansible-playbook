@@ -8,6 +8,7 @@
       community.vmware.vmware_guest:
         validate_certs: "{{ validate_certs }}"
         name: "{{ vm_name }}"
+        vm_notes: "{{ notes }}"
         template: "{{ template_name }}"
         datacenter: "{{ datacenter_name }}"
         folder: "{{ vm_folder }}"
