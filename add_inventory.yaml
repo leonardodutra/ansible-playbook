@@ -1,0 +1,30 @@
+- name: Adicionar host ao inventário do AWX
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    awx_url: "https://awx.seuservidor.com"
+    awx_token: "{{ awx_api_token }}"
+    inventory_id: 5  # Substitua pelo ID do seu inventário no AWX
+    new_host_name: "servidor.exemplo.local"
+    host_variables:
+      ansible_user: "admin"
+      ansible_password: "senha123"
+      ansible_connection: "winrm"
+
+  tasks:
+    - name: Adicionar host ao inventário
+      uri:
+        url: "{{ awx_url }}/api/v2/hosts/"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+          Authorization: "Bearer {{ awx_token }}"
+        body_format: json
+        body:
+          name: "{{ new_host_name }}"
+          inventory: "{{ inventory_id }}"
+          variables: "{{ host_variables | to_nice_json }}"
+        validate_certs: no
+        status_code: 201
